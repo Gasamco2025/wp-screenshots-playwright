@@ -26,11 +26,12 @@ jobs:
     - name: Run screenshots
       run: node screenshot.js
 
-    - name: Upload via FTP
-      uses: SamKirkland/FTP-Deploy-Action@v4
-      with:
-        server: ${{ secrets.FTP_SERVER }}
-        username: ${{ secrets.FTP_USER }}
-        password: ${{ secrets.FTP_PASS }}
-        local-dir: screenshots/
-        server-dir: /public_html/wp-content/screenshots/
+  - name: Upload via FTP
+  uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+  with:
+    server: ${{ secrets.FTP_SERVER }}
+    username: ${{ secrets.FTP_USER }}
+    password: ${{ secrets.FTP_PASS }}
+    local-dir: screenshots/
+    server-dir: /public_html/wp-content/screenshots/
+
