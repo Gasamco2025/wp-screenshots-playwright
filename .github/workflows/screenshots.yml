@@ -1,0 +1,35 @@
+name: Screenshots WordPress
+
+on:
+  repository_dispatch:
+    types: [generate_screenshots]
+
+jobs:
+  screenshots:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+
+    - name: Install Playwright
+      run: |
+        npm init -y
+        npm install playwright
+        npx playwright install chromium
+
+    - name: Run screenshots
+      run: node screenshot.js
+
+    - name: Upload via FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USER }}
+        password: ${{ secrets.FTP_PASS }}
+        local-dir: screenshots/
+        server-dir: /public_html/wp-content/screenshots/
