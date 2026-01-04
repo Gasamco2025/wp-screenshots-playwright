@@ -2,6 +2,9 @@ name: Screenshots WordPress
 
 on:
   workflow_dispatch:
+
+on:
+  workflow_dispatch:
   repository_dispatch:
     types: [generate_screenshots]
 
